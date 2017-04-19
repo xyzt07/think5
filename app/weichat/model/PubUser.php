@@ -1,7 +1,7 @@
 <?php
 namespace app\weichat\model;
-
-class PubUser {
+use Base;
+class PubUser extends Base{
         public $appId;
         public $appSecret;
         public $token;

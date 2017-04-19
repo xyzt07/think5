@@ -13,14 +13,26 @@ class Oauth
             'path'  =>  APP_PATH.'logs/'
         ]);
         $request = Request::instance();
-        $echoStr = $request->param();
+        $info = $request->param();
         //valid signature , option
         //$echoStr=json_decode($echoStr);
         //return $echoStr;
         
         if($this->checkSignature()){
-            echo $echoStr['echostr'];
-
+            
+            if($request->isPOST()){
+                $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+                //D('Oauth')->
+                //$postStr=simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+                $postinfo=XmlToArray($postStr);
+                //$dd=(String)$postinfo;
+                //$info=input('request.');
+                Log::write($postinfo);
+                //Log::write($postStr);
+                echo 'info';
+            }else{
+                echo $info['echostr'];
+            }
             exit;
         }
     }

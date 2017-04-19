@@ -15,16 +15,18 @@ class PubUser
         $appid="wxac883d4c9f20abd0";
         $secret="069800b6691ac71d76fde3bb68d00c86";
         $url="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$secret";
-        return curlGet($url);
+        $response=curlGet($url);
+        $responseObj = str_replace('"','',explode(':',explode(',',$response)[0])[1]);
+        return $responseObj ;
     }
     function init_user(){
         return 'ok';
     }
     public function __construct(){
-            parent::__construct();
+            /*parent::__construct();
 
             //只要用户一访问此模块，就登录授权，获取用户信息
-            $this->userInfo = $this->getWxUserInfo();
+            $this->userInfo = $this->getWxUserInfo();*/
         }
     
 
@@ -73,7 +75,10 @@ class PubUser
     }
     function get_user(){
         $ACCESS_TOKEN=$this->get_access_token();
+        //dump($ACCESS_TOKEN);
         $url="https://api.weixin.qq.com/cgi-bin/user/get?access_token=$ACCESS_TOKEN";
+        $response=curlGet($url);
+        return $response;
     }
 
     
