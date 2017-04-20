@@ -25,6 +25,7 @@ class Oauth
                 //D('Oauth')->
                 //$postStr=simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
                 $postinfo=XmlToArray($postStr);
+                model('Weixin')->get_msg($postinfo);
                 //$dd=(String)$postinfo;
                 //$info=input('request.');
                 Log::write($postinfo);

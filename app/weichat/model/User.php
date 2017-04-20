@@ -21,14 +21,14 @@ class User extends Model{
 
     }
     function add_user_info($save){
-        model('User')->add($save);
+        model('User')->allowField(true)->save($save);
         return model('User')->uid;
     }
     function sync_user(){
 
     }
     function update_user_info(){
-        
+        //$this->
     }
     function get_user_group(){
 

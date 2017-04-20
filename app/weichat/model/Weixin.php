@@ -1,35 +1,40 @@
 <?php
 namespace app\weichat\model;
 use think\Model;
+use think\Log;
 class Weixin extends Model{
     private $appid="wxac883d4c9f20abd0";
     private $secret="069800b6691ac71d76fde3bb68d00c86";
     function get_msg($data){
+        Log::init([
+            'type'  =>  'File',
+            'path'  =>  APP_PATH.'logs/'
+        ]);
         //事件推送
         if($data['MsgType']=='event'){
-            if($data['event']=='subscribe'){
-                $Fllow= model("Follow");
-                $is_exit=$Follow->where('openid', $data['FromUserName'])->find();
+            if($data['Event']=='subscribe'){
+
+                $is_exit=Db("follow")->where(array('openid'=>$data['FromUserName']))->select();
                 if(count($is_exit)>=1){
                     //model("User")->update_user_info($data['FromUserName']);
                 }
                 else{
                     model("User")->init_user($data['FromUserName']);
                     //$Fllow->data(['openid'=>$data['FromUserName']]);
-                    $Follow->save();
-                    $User= model("User");
-                    $User->add_user_info($Follow->id);
+                    //$Follow->save();
+                    //$User= model("User");
+                    //$User->add_user_info($Follow->id);
                 }
                
             }
             
         }
         //消息推送
-        elseif($data['MsgType']=='text'){
+        /*elseif($data['MsgType']=='text'){
             # code...
         }else{
 
-        }
+        }*/
     }
     function get_access_token(){
         $appid=$this->appid;
