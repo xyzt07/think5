@@ -74,11 +74,24 @@ class PubUser
         Log::write($param);
     }
     function get_user(){
-        $ACCESS_TOKEN=$this->get_access_token();
+        /*$ACCESS_TOKEN=$this->get_access_token();
         //dump($ACCESS_TOKEN);
         $url="https://api.weixin.qq.com/cgi-bin/user/get?access_token=$ACCESS_TOKEN";
         $response=curlGet($url);
-        return $response;
+        return $response;*/
+        $openid="o5Vyev3HBbwYAqL71eU1vTWYQKYE";
+        $user = model('User');
+        $info=$user->get_user_info($openid);
+        return $info;
+    }
+    function get_group(){
+        $lis=model("Group")->get_list_group();
+        return $lis;
+    }
+    function create_group(){
+        $name="普通用户";
+        $lis=model("Group")->create_group($name);
+        return $lis;
     }
 
     

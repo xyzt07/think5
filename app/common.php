@@ -63,3 +63,11 @@
         $val = json_decode(json_encode($xmlstring),true); 
         return $val; 
     }
+    //Unicode解码
+    function unicodeDecode($name){
+        $name=str_replace('"','',$name);
+        $json = '{"str":"'.$name.'"}';
+        $arr = json_decode($json,true);
+        if(empty($arr)) return '';
+        return $arr['str'];
+    }
